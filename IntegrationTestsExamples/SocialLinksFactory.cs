@@ -7,7 +7,7 @@ namespace IntegrationTestsExamples
         BaseLinkParserHandler GetRootParser();
     }
 
-    internal class SocialLinksFactory : ISocialLinksFactory
+    public class SocialLinksFactory : ISocialLinksFactory
     {
         private readonly IServiceProvider _services;
 

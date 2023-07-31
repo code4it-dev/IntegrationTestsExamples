@@ -1,7 +1,10 @@
-using IntegrationTestsExamples;
+﻿using IntegrationTestsExamples;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace IntegrationTests
 {
@@ -16,23 +19,15 @@ namespace IntegrationTests
                 configurationBuilder.AddInMemoryCollection(
                     new List<KeyValuePair<string, string?>>
                     {
-                        new KeyValuePair<string, string?>("myKey", "myValue")
+                      new KeyValuePair<string, string?>("InstanceName", "FromTests")
                     });
             });
-        }
-    }
 
-    public class Tests
-    {
-        [SetUp]
-        public void Setup()
-        {
-        }
-
-        [Test]
-        public void Test1()
-        {
-            Assert.Pass();
+            builder.ConfigureTestServices(services =>
+            {
+                services.AddScoped<ISocialLinkParser, StubSocialLinkParser>();
+                services.AddLogging(builder => builder.ClearProviders().AddConsole().AddDebug());
+            });
         }
     }
 }

@@ -11,6 +11,7 @@ namespace IntegrationTestsExamples
             // Add services to the container.
 
             builder.Services.AddScoped<ISocialLinkParser, SocialLinkParser>();
+            builder.Services.AddScoped<SocialLinkParser>();
             builder.Services.AddScoped<InvalidPostHandler>();
             builder.Services.AddScoped<TwitterHandler>();
             builder.Services.AddScoped<LinkedInHandler>();
